@@ -51,6 +51,12 @@ class Tree {
 
     return this.root;
   }
+
+  inOrderForEach(callback) {
+    if (!callback) throw new Error("callback is rquired");
+
+    Tools.inOrder(this.root, callback);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -68,5 +74,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 6]);
 
-const a = test.levelOrderForEach((node) => (node.value += 1));
+test.inOrderForEach((node) => (node.value += 4));
 prettyPrint(test.root);

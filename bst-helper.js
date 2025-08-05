@@ -52,4 +52,14 @@ export default class Tools {
       return node;
     }
   }
+
+  static inOrder(node, callback) {
+    if (!node) return null;
+
+    if (node.left) node.left = this.inOrder(node.left, callback);
+    callback(node);
+    if (node.right) node.right = this.inOrder(node.right, callback);
+
+    return node;
+  }
 }
