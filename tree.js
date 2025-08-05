@@ -1,6 +1,6 @@
 import Tools from "./bst-helper.js";
 
-class Node {
+export default class Node {
   constructor(value) {
     this.value = value;
     this.left = null;
@@ -33,6 +33,24 @@ class Tree {
   deleteItem(value) {
     Tools.deleteNode(this.root, value);
   }
+
+  find(value) {
+    return Tools.findNode(this.root, value);
+  }
+
+  levelOrderForEach(callback) {
+    if (!callback) throw new Error("callback is required");
+
+    const queue = [this.root];
+    while (queue.length > 0) {
+      let current = queue.shift();
+      callback(current);
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+    }
+
+    return this.root;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -48,6 +66,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 6]);
 
+const a = test.levelOrderForEach((node) => (node.value += 1));
 prettyPrint(test.root);

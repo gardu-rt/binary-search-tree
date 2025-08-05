@@ -1,3 +1,5 @@
+import Node from "./tree.js";
+
 export default class Tools {
   static insertNode(node, value) {
     if (!node) return new Node(value);
@@ -36,7 +38,18 @@ export default class Tools {
       node.value = successor.value;
       node.right = this.deleteNode(node.right, successor.value);
     }
-
     return node;
+  }
+
+  static findNode(node, value) {
+    if (!node) return null;
+
+    if (value < node.value) {
+      return this.findNode(node.left, value);
+    } else if (value > node.value) {
+      return this.findNode(node.right, value);
+    } else {
+      return node;
+    }
   }
 }
