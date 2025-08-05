@@ -1,3 +1,5 @@
+import Tools from "./bst-helper.js";
+
 class Node {
   constructor(value) {
     this.value = value;
@@ -22,6 +24,14 @@ class Tree {
     node.right = this.buildTree(arr.slice(midIndex + 1));
 
     return node;
+  }
+
+  insert(value) {
+    this.root = Tools.insertNode(this.root, value);
+  }
+
+  deleteItem(value) {
+    Tools.deleteNode(this.root, value);
   }
 }
 
