@@ -39,7 +39,7 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
-    if (!callback) throw new Error("callback is required");
+    if (!callback) throw new Error("Callback is required");
 
     const queue = [this.root];
     while (queue.length > 0) {
@@ -53,9 +53,52 @@ class Tree {
   }
 
   inOrderForEach(callback) {
-    if (!callback) throw new Error("callback is rquired");
+    if (!callback) throw new Error("Callback is required");
 
     Tools.inOrder(this.root, callback);
+  }
+
+  preOrderForEach(callback) {
+    if (!callback) throw new Error("Callback is required");
+
+    Tools.preOrder(this.root, callback);
+  }
+
+  postOrderForEach(callback) {
+    if (!callback) throw new Error("Callback is required");
+
+    Tools.postOrder(this.root, callback);
+  }
+
+  height(value) {
+    let node = this.root;
+    while (node) {
+      if (value < node.value) node = node.left;
+      else if (value > node.value) node = node.right;
+      else {
+        return Tools.height(node);
+      }
+    }
+
+    return null;
+  }
+
+  depth(value) {
+    let node = this.root;
+    let count = 0;
+    while (node) {
+      if (value < node.value) {
+        node = node.left;
+        count++;
+      } else if (value > node.value) {
+        node = node.right;
+        count++;
+      } else {
+        return count;
+      }
+    }
+
+    return null;
   }
 }
 
@@ -75,4 +118,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 6]);
 
 test.inOrderForEach((node) => (node.value += 4));
+console.log(test.depth(9));
 prettyPrint(test.root);

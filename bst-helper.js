@@ -62,4 +62,33 @@ export default class Tools {
 
     return node;
   }
+
+  static preOrder(node, callback) {
+    if (!node) return null;
+
+    callback(node);
+    if (node.left) node.left = this.preOrder(node.left, callback);
+    if (node.right) node.right = this.preOrder(node.right, callback);
+
+    return node;
+  }
+
+  static postOrder(node, callback) {
+    if (!node) return null;
+
+    if (node.left) node.left = this.postOrder(node.left, callback);
+    if (node.right) node.right = this.postOrder(node.right, callback);
+    callback(node);
+
+    return node;
+  }
+
+  static height(node) {
+    if (!node) return -1;
+
+    const left = this.height(node.left);
+    const right = this.height(node.right);
+
+    return 1 + Math.max(left, right);
+  }
 }
