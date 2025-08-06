@@ -91,4 +91,18 @@ export default class Tools {
 
     return 1 + Math.max(left, right);
   }
+
+  static checkBalance(node) {
+    if (!node) return { height: -1, balanced: true };
+
+    const left = this.checkBalance(node.left);
+    const right = this.checkBalance(node.right);
+
+    const height = 1 + Math.max(left.height, right.height);
+    const balanced =
+      left.balanced &&
+      right.balanced &&
+      Math.abs(left.height - right.height) <= 1;
+    return { height, balanced };
+  }
 }

@@ -100,6 +100,17 @@ class Tree {
 
     return null;
   }
+
+  isBalanced() {
+    return Tools.checkBalance(this.root).balanced;
+  }
+
+  rebalanced() {
+    const newArray = [];
+    this.levelOrderForEach((node) => newArray.push(node.value));
+    newArray.sort((a, b) => a - b);
+    this.root = this.buildTree(newArray);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -115,8 +126,18 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 6]);
+function getRandomArray() {
+  const result = [];
+  const size = 10;
+  for (let i = 0; i <= size; i++) {
+    result.push(Math.floor(Math.random() * size));
+  }
 
-test.inOrderForEach((node) => (node.value += 4));
-console.log(test.depth(9));
+  return result;
+}
+
+const newArray = getRandomArray();
+
+const test = new Tree(newArray);
 prettyPrint(test.root);
+console.log(test.isBalanced());
